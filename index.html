@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UET Journey: Ocean of Code - Đếm ngược ngày thi THPT Quốc gia 2026. Chinh phục Đại học Công nghệ - ĐHQGHN.">
+    <title>UET Journey: Ocean of Code — Đếm Ngược THPT QG 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            background: #0a0e27;
+        }
+
+        /* ========== BACKGROUND LAYERS ========== */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+        }
+
+        /* Layer 1: Ocean sunset gradient */
+        .bg-gradient {
+            background: linear-gradient(
+                180deg,
+                #0d0b2e 0%,
+                #1a1050 15%,
+                #2d1b69 30%,
+                #3a1d8e 42%,
+                #1e3a7a 55%,
+                #0c4a6e 65%,
+                #0e5a7e 75%,
+                #0f6b8a 85%,
+                #1a7a8a 95%,
+                #1a6e6e 100%
+            );
+        }
+
+        /* Layer 2: Subtle stars */
+        .bg-stars {
+            background-image:
+                radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 25% 8%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1.5px 1.5px at 40% 20%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 55% 5%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 70% 18%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 85% 12%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 95% 22%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 15% 3%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 33% 10%, rgba(255,255,255,0.5), transparent);
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        /* Layer 3: UET purple-blue overlay */
+        .bg-overlay {
+            background: linear-gradient(
+                180deg,
+                rgba(45, 27, 105, 0.3) 0%,
+                rgba(30, 58, 122, 0.2) 50%,
+                rgba(10, 60, 100, 0.1) 100%
+            );
+        }
+
+        /* ========== OCEAN WAVES ========== */
+        .waves-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: -5%;
+            width: 110%;
+            height: 100%;
+        }
+
+        .wave svg {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+        }
+
+        .wave-1 svg { animation: wave-drift 8s ease-in-out infinite; }
+        .wave-2 svg { animation: wave-drift 10s ease-in-out infinite reverse; }
+        .wave-3 svg { animation: wave-drift 12s ease-in-out infinite; }
+
+        @keyframes wave-drift {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-25%); }
+        }
+
+        /* ========== BUBBLES / PARTICLES ========== */
+        .bubbles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.25), rgba(0, 150, 255, 0.05));
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-110vh) translateX(40px) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ========== ANCHOR ICON ========== */
+        .anchor-icon {
+            position: fixed;
+            bottom: 220px;
+            right: 40px;
+            z-index: 15;
+            opacity: 0.15;
+            font-size: 3rem;
+            animation: anchor-sway 4s ease-in-out infinite;
+        }
+
+        @keyframes anchor-sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* ========== UET BADGE ========== */
+        .uet-badge {
+            position: fixed;
+            top: 30px;
+            left: 40px;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            opacity: 0.7;
+            animation: fade-in 2s ease-out;
+            transition: opacity 0.3s ease;
+        }
+        .uet-badge:hover { opacity: 1; }
+
+        .uet-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #7b2ff7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .uet-badge-text {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* ========== TARGET BADGE ========== */
+        .target-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 28px;
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            border-radius: 50px;
+            background: rgba(0, 212, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #00d4ff;
+            margin-bottom: 16px;
+            animation: fade-in 1.5s ease-out, glow-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 212, 255, 0.1); }
+            50% { box-shadow: 0 0 30px rgba(0, 212, 255, 0.25); }
+        }
+
+        /* ========== TITLE ========== */
+        .main-title {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 50%, #7b2ff7 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 5s ease-in-out infinite, fade-in 2s ease-out;
+            filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.3));
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 50px;
+            animation: fade-in 2.5s ease-out;
+        }
+
+        /* ========== COUNTDOWN ========== */
+        .countdown {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 50px;
+            animation: fade-in 2s ease-out 0.5s both;
+        }
+
+        .time-card {
+            position: relative;
+            width: 120px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .time-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0%,
+                rgba(0, 212, 255, 0.1) 25%,
+                transparent 50%
+            );
+            animation: rotate-glow 6s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate-glow {
+            100% { transform: rotate(360deg); }
+        }
+
+        .time-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.15),
+                         0 0 40px rgba(123, 47, 247, 0.1);
+        }
+
+        .time-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(180deg, #ffffff, #a0d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.5));
+        }
+
+        .time-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            opacity: 0.6;
+            font-weight: 500;
+        }
+
+        /* ========== DIVIDER ========== */
+        .time-divider {
+            display: flex;
+            align-items: center;
+            font-size: 2.5rem;
+            font-weight: 300;
+            opacity: 0.3;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        /* ========== SLOGAN ========== */
+        .slogan-wrapper {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            animation: fade-in 3s ease-out;
+        }
+
+        .slogan-text {
+            font-size: 1.35rem;
+            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 1px;
+            max-width: 700px;
+            line-height: 1.6;
+            opacity: 1;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .slogan-text.fade-out {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .slogan-text.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== PROGRESS BAR ========== */
+        .progress-section {
+            width: 100%;
+            max-width: 500px;
+            animation: fade-in 3s ease-out 1s both;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #7b2ff7, #00d4ff);
+            transition: width 1s ease-out;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -3px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.8);
+        }
+
+        /* ========== MUSIC TOGGLE ========== */
+        .music-toggle {
+            position: fixed;
+            top: 30px;
+            right: 40px;
+            z-index: 15;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+        .music-toggle:hover { opacity: 1; border-color: rgba(0, 212, 255, 0.4); }
+
+        .music-bars {
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            height: 16px;
+        }
+        .music-bar {
+            width: 3px;
+            background: #00d4ff;
+            border-radius: 2px;
+            transition: height 0.3s ease;
+        }
+        .music-bars.playing .music-bar:nth-child(1) { animation: bar-bounce 0.8s ease-in-out infinite 0s; }
+        .music-bars.playing .music-bar:nth-child(2) { animation: bar-bounce 0.8s ease-in-out infinite 0.15s; }
+        .music-bars.playing .music-bar:nth-child(3) { animation: bar-bounce 0.8s ease-in-out infinite 0.3s; }
+        .music-bars.playing .music-bar:nth-child(4) { animation: bar-bounce 0.8s ease-in-out infinite 0.45s; }
+
+        .music-bar:nth-child(1) { height: 6px; }
+        .music-bar:nth-child(2) { height: 10px; }
+        .music-bar:nth-child(3) { height: 4px; }
+        .music-bar:nth-child(4) { height: 14px; }
+
+        @keyframes bar-bounce {
+            0%, 100% { height: 4px; }
+            50% { height: 16px; }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .main-title { font-size: 1.8rem; }
+            .subtitle { font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 30px; }
+            .countdown { gap: 12px; }
+            .time-card { width: 75px; height: 95px; border-radius: 14px; }
+            .time-value { font-size: 2rem; }
+            .time-label { font-size: 0.55rem; letter-spacing: 1.5px; margin-top: 6px; }
+            .time-divider { font-size: 1.5rem; }
+            .slogan-text { font-size: 1rem; padding: 0 20px; }
+            .target-badge { font-size: 0.6rem; padding: 6px 16px; letter-spacing: 2px; }
+            .uet-badge { top: 15px; left: 15px; }
+            .music-toggle { top: 15px; right: 15px; }
+            .anchor-icon { bottom: 180px; right: 20px; font-size: 2rem; }
+            .waves-container { height: 140px; }
+        }
+
+        @media (max-width: 480px) {
+            .main-title { font-size: 1.4rem; }
+            .countdown { gap: 8px; }
+            .time-card { width: 65px; height: 82px; border-radius: 12px; }
+            .time-value { font-size: 1.6rem; }
+            .time-label { font-size: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== BACKGROUND LAYERS ========== -->
+    <div class="bg-layer bg-gradient"></div>
+    <div class="bg-layer bg-stars"></div>
+    <div class="bg-layer bg-overlay"></div>
+
+    <!-- ========== OCEAN WAVES ========== -->
+    <div class="waves-container">
+        <div class="wave wave-1">
+            <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                <path fill="rgba(10, 60, 100, 0.6)" d="M0,120 C320,180 440,60 720,120 C1000,180 1120,60 1440,120 L1440,200 L0,200 Z"/>
+            </svg>
+        </div>
+        <div class="wave wave-2">
+            <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                <path fill="rgba(15, 80, 120, 0.4)" d="M0,140 C360,80 540,180 720,140 C900,100 1080,180 1440,140 L1440,200 L0,200 Z"/>
+            </svg>
+        </div>
+        <div class="wave wave-3">
+            <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+                <path fill="rgba(20, 100, 130, 0.3)" d="M0,160 C280,120 460,190 720,160 C980,130 1160,190 1440,160 L1440,200 L0,200 Z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ========== BUBBLES ========== -->
+    <div class="bubbles" id="bubbles"></div>
+
+    <!-- ========== UET BADGE ========== -->
+    <div class="uet-badge">
+        <div class="uet-logo">UET</div>
+        <span class="uet-badge-text">VNU University of Engineering and Technology</span>
+    </div>
+
+    <!-- ========== ANCHOR ICON ========== -->
+    <div class="anchor-icon">⚓</div>
+
+    <!-- ========== MUSIC TOGGLE ========== -->
+    <button class="music-toggle" id="musicToggle" title="Âm thanh sóng biển">
+        <div class="music-bars" id="musicBars">
+            <div class="music-bar"></div>
+            <div class="music-bar"></div>
+            <div class="music-bar"></div>
+            <div class="music-bar"></div>
+        </div>
+    </button>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="container">
+        <div class="target-badge">
+            <span>🎯</span>
+            <span>Mục tiêu: Đại học Công nghệ — ĐHQGHN</span>
+        </div>
+
+        <h1 class="main-title">Ocean of Code</h1>
+        <p class="subtitle">Chuyến hải trình chinh phục THPT QG 2026</p>
+
+        <div class="countdown" id="countdown">
+            <div class="time-card">
+                <span class="time-value" id="days">000</span>
+                <span class="time-label">Ngày</span>
+            </div>
+            <div class="time-divider">:</div>
+            <div class="time-card">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">Giờ</span>
+            </div>
+            <div class="time-divider">:</div>
+            <div class="time-card">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">Phút</span>
+            </div>
+            <div class="time-divider">:</div>
+            <div class="time-card">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">Giây</span>
+            </div>
+        </div>
+
+        <div class="slogan-wrapper">
+            <p class="slogan-text" id="slogan">Khởi tạo chuyến hải trình...</p>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Bắt đầu hành trình</span>
+                <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== OCEAN SOUND (optional) ========== -->
+    <audio id="oceanSound" loop preload="auto">
+        <source src="https://cdn.freesound.org/previews/467/467006_5883537-lq.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ==========================================
+        // CONFIGURATION
+        // ==========================================
+        const EXAM_DATE = new Date('June 12, 2026 07:30:00').getTime();
+        // Assume a school year start for progress calculation (~Sep 1, 2025)
+        const JOURNEY_START = new Date('September 1, 2025 00:00:00').getTime();
+
+        const SLOGANS = [
+            "\"Thiên tài là 1% cảm hứng và 99% mồ hôi.\" — Thomas Edison 💡",
+            "\"Cách duy nhất để làm việc vĩ đại là yêu thích điều bạn làm.\" — Steve Jobs",
+            "\"Trí tưởng tượng quan trọng hơn kiến thức.\" — Albert Einstein 🌌",
+            "\"Thành công không phải đích đến, mà là cả hành trình.\" — Winston Churchill",
+            "\"Giáo dục là vũ khí mạnh nhất để thay đổi thế giới.\" — Nelson Mandela ✊",
+            "\"Tôi chưa thất bại. Tôi chỉ tìm ra 10.000 cách không hiệu quả.\" — Thomas Edison",
+            "\"Hãy là sự thay đổi mà bạn muốn thấy trên thế giới.\" — Mahatma Gandhi 🕊️",
+            "\"Khó khăn nào cũng ẩn chứa cơ hội.\" — Albert Einstein",
+            "\"Học, học nữa, học mãi.\" — Vladimir Lenin 📚",
+            "\"Đừng sợ thất bại. Hãy sợ việc không dám thử.\" — Michael Jordan 🏀",
+            "\"Tương lai thuộc về những ai tin vào vẻ đẹp của ước mơ.\" — Eleanor Roosevelt ✨",
+            "\"Không có con đường tắt nào dẫn đến thành công.\" — Beverly Sills",
+            "\"Người chiến thắng không bao giờ bỏ cuộc, người bỏ cuộc không bao giờ thắng.\" — Vince Lombardi 🏆",
+            "\"Hãy luôn khao khát. Hãy luôn dại khờ.\" — Steve Jobs 🍎",
+            "\"Điều quan trọng không phải vị trí đứng mà là hướng đi.\" — Oliver Wendell Holmes"
+        ];
+
+        const SLOGAN_INTERVAL = 7000; // 7 seconds
+        const BUBBLE_COUNT = 18;
+
+        // ==========================================
+        // COUNTDOWN LOGIC
+        // ==========================================
+        function updateCountdown() {
+            const now = Date.now();
+            const diff = EXAM_DATE - now;
+
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.getElementById('slogan').textContent = '🎉 Kỳ thi đã bắt đầu — Chúc bạn chiến thắng!';
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(d).padStart(d >= 100 ? 3 : 2, '0');
+            document.getElementById('hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+
+            // Update progress bar
+            const totalJourney = EXAM_DATE - JOURNEY_START;
+            const elapsed = now - JOURNEY_START;
+            const percent = Math.min(Math.max((elapsed / totalJourney) * 100, 0), 100);
+            document.getElementById('progressFill').style.width = percent.toFixed(1) + '%';
+            document.getElementById('progressPercent').textContent = percent.toFixed(1) + '%';
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // ==========================================
+        // SLOGAN SLIDER
+        // ==========================================
+        let sloganIndex = 0;
+
+        function changeSlogan() {
+            const el = document.getElementById('slogan');
+            el.classList.add('fade-out');
+            el.classList.remove('fade-in');
+
+            setTimeout(() => {
+                sloganIndex = (sloganIndex + 1) % SLOGANS.length;
+                el.textContent = SLOGANS[sloganIndex];
+                el.classList.remove('fade-out');
+                el.classList.add('fade-in');
+            }, 800);
+        }
+
+        // Start with first slogan after a short delay
+        setTimeout(() => {
+            document.getElementById('slogan').textContent = SLOGANS[0];
+        }, 1500);
+
+        setInterval(changeSlogan, SLOGAN_INTERVAL);
+
+        // ==========================================
+        // BUBBLE PARTICLES
+        // ==========================================
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            for (let i = 0; i < BUBBLE_COUNT; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+
+                const size = Math.random() * 20 + 6;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 12 + 10;
+                const delay = Math.random() * 15;
+
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = left + '%';
+                bubble.style.animationDuration = duration + 's';
+                bubble.style.animationDelay = delay + 's';
+
+                container.appendChild(bubble);
+            }
+        }
+
+        createBubbles();
+
+        // ==========================================
+        // MUSIC TOGGLE
+        // ==========================================
+        const musicToggle = document.getElementById('musicToggle');
+        const musicBars = document.getElementById('musicBars');
+        const oceanSound = document.getElementById('oceanSound');
+        let isPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                oceanSound.pause();
+                musicBars.classList.remove('playing');
+            } else {
+                oceanSound.volume = 0.3;
+                oceanSound.play().catch(() => {
+                    console.log('Audio autoplay blocked by browser.');
+                });
+                musicBars.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // ==========================================
+        // SECOND TICK ANIMATION
+        // ==========================================
+        setInterval(() => {
+            const secEl = document.getElementById('seconds');
+            secEl.style.transition = 'none';
+            secEl.style.transform = 'scale(1.1)';
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    secEl.style.transition = 'transform 0.3s ease-out';
+                    secEl.style.transform = 'scale(1)';
+                });
+            });
+        }, 1000);
+    </script>
+</body>
+</html>
